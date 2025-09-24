@@ -48,6 +48,23 @@
         "buildTarget": "docker:build",
         "runTarget": "docker:run"
       }
+    },
+    {
+      "plugin": "@nx/js/typescript",
+      "include": ["shared/*"],
+      "options": {
+        "typecheck": {
+          "targetName": "typecheck"
+        }
+      },
+      "exclude": ["shared/*"]
     }
-  ]
+  ],
+  "targetDefaults": {
+    "@nx/js:swc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  }
 }
