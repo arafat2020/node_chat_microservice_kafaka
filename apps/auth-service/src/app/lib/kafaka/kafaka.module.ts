@@ -1,7 +1,6 @@
-import { Global, Module } from "@nestjs/common";
-import { KafkaService } from "./kafka.service";
+import { Global, Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-
+import { KafkaService } from './kafka.service';
 
 @Global()
 @Module({
@@ -12,16 +11,16 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'api-client',
+            clientId: 'auth-client',
             brokers: ["localhost:29092"],
           },
           consumer: {
-            groupId: 'apl-consumer-group',
+            groupId: 'auth-consumer-group',
           },
         },
       },
     ]),
     ],
-    providers:[KafkaService],
+    providers:[KafkaService]
 })
-export class LibModule {}
+export class KafkaModule {}
