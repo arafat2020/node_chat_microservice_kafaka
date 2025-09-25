@@ -11,7 +11,7 @@ export class LoginService {
   ) {}
 
   public async signIn({ email, password }: SignInDto): Promise<ApiResponse<Record<string, string>>> {
-  
+
     const isEmailExist = await this.commonService.isEmailExist(email);
     if (!isEmailExist.isExist || !isEmailExist.user) {
       throw new BadRequestException('Email does not exist');

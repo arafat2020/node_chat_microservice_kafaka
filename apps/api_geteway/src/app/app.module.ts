@@ -5,7 +5,7 @@ import { LibModule } from './lib/lib.module';
 
 @Module({
   imports: [
-    LibModule,
+    LibModule
   ],
   controllers: [AppController],
   providers: [AppService],
