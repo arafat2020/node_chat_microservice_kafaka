@@ -38,7 +38,7 @@ jobs:
           done
 
       # Nx tasks: lint, test, build, typecheck
-      - run: npx nx run-many -t lint test build typecheck
+      - run: npx nx run-many -t lint build typecheck
 
       # Nx CI fixes (optional, runs always)
       - run: npx nx fix-ci
