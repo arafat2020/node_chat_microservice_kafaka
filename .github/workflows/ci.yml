@@ -30,7 +30,12 @@ jobs:
 
       # Generate Prisma client
       - name: Generate Prisma Client
-        run: npx prisma generate
+        run: |
+          echo "Generating Prisma clients for all services..."
+          for schema in $(find . -type f -name "schema.prisma"); do
+            echo "Generating for $schema"
+            npx prisma generate --schema=$schema
+          done
 
       # Nx tasks: lint, test, build, typecheck
       - run: npx nx run-many -t lint test build typecheck
