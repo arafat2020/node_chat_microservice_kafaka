@@ -1,0 +1,4 @@
+# Ignore Prisma generated files
+**/node_modules/**
+**/src/generated/**
+apps/*/src/generated/**
