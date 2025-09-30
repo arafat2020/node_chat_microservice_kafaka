@@ -1,27 +1,27 @@
-import { Global, Module } from "@nestjs/common";
-import { KafkaService } from "./kafka.service";
+import { Global, Module } from '@nestjs/common';
+import { KafkaService } from './kafka.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-
 
 @Global()
 @Module({
-    imports:[
-         ClientsModule.register([
+  imports: [
+    ClientsModule.register([
       {
         name: 'KAFKA_CLIENT',
         transport: Transport.KAFKA,
         options: {
           client: {
             clientId: 'api-client',
-            brokers: ["localhost:29092"],
+            brokers: ['localhost:29092'],
           },
           consumer: {
-            groupId: 'apl-consumer-group',
+            groupId: 'api-consumer-group',
           },
         },
       },
     ]),
-    ],
-    providers:[KafkaService],
+  ],
+  providers: [KafkaService],
+  exports: [KafkaService],
 })
 export class LibModule {}
