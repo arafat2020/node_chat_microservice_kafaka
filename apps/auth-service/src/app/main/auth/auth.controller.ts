@@ -14,6 +14,8 @@ export class AuthController {
 
   @MessagePattern('user.signin')
   async signIn(@Payload() signInDto: SignInDto): PromiseMapResponse {
+    console.log('AuthController signIn called with:', signInDto);
+    
     try {
       const result = await this.loginService.signIn(signInDto);
       return result;
