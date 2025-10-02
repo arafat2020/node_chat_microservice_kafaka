@@ -10,3 +10,5 @@ export interface ApiResponse<T> {
   meta?: ResponseMeta;
   data: T | null;
 }
+
+export type PromiseMapResponse = Promise<ApiResponse<Record<string, string>>>;

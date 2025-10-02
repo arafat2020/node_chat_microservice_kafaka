@@ -4,6 +4,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoginService } from './services/login.service';
 import { CommonService } from './services/common.service';
+import { AuthController } from './auth.controller';
+import { SignUpService } from './services/signUp.service';
 
 @Module({
   imports: [
@@ -14,7 +16,7 @@ import { CommonService } from './services/common.service';
       useFactory: async (configService: ConfigService) => ({
         secret: configService.getOrThrow<string>('JWT_SECRET'),
         signOptions: {
-          expiresIn: configService.get<string>('JWT_EXPIRES_IN', '3600s'),
+          expiresIn: configService.get<string>('JWT_EXPIRES_IN', '3d'),
         },
       }),
     }),
@@ -22,6 +24,8 @@ import { CommonService } from './services/common.service';
   providers: [
     LoginService,
     CommonService,
+    SignUpService
   ],
+  controllers:[AuthController]
 })
 export class AuthModule {}

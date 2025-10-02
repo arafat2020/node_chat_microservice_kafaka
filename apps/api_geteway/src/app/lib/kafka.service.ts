@@ -1,4 +1,10 @@
-import { Injectable, Inject, OnModuleInit, OnModuleDestroy, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  OnModuleInit,
+  OnModuleDestroy,
+  Logger,
+} from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
@@ -9,6 +15,8 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     this.logger.log('Connecting Kafka client...');
+    this.client.subscribeToResponseOf('user.signin');
+    this.client.subscribeToResponseOf('user.signup');
     await this.client.connect();
     this.logger.log('Kafka client connected ✅');
   }
@@ -20,10 +28,10 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
   }
 
   // Request-response
-  async send<T = any>(topic: string, message: any) {
-    this.logger.debug(`Sending message to topic "${topic}"`, message);
-    return this.client.send<T, any>(topic, message);
-  }
+ send<T = any>(topic: string, message: any) {
+  this.logger.debug(`Sending message to topic "${topic}"`, message);
+  return this.client.send<T, any>(topic, message); // remove async
+}
 
   // Fire-and-forget
   async emit(topic: string, message: any) {
