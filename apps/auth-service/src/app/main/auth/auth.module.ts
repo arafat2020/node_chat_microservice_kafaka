@@ -6,6 +6,7 @@ import { LoginService } from './services/login.service';
 import { CommonService } from './services/common.service';
 import { AuthController } from './auth.controller';
 import { SignUpService } from './services/signUp.service';
+import { TokenService } from './services/token.service';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { SignUpService } from './services/signUp.service';
   providers: [
     LoginService,
     CommonService,
-    SignUpService
+    SignUpService,
+    TokenService,
   ],
   controllers:[AuthController]
 })
