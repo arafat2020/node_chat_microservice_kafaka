@@ -4,18 +4,18 @@ import { LoginService } from './services/login.service';
 import { SignInDto, SignUpDto } from '@node-chat/shared';
 import type { PromiseMapResponse } from '@node-chat/shared';
 import { SignUpService } from './services/signUp.service';
+import { TokenService } from './services/token.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly loginService: LoginService,
-    private readonly signUpService: SignUpService
+    private readonly signUpService: SignUpService,
+    private readonly tokenService: TokenService,
   ) {}
 
   @MessagePattern('user.signin')
-  async signIn(@Payload() signInDto: SignInDto): PromiseMapResponse {
-    console.log('AuthController signIn called with:', signInDto);
-    
+  async signIn(@Payload() signInDto: SignInDto): PromiseMapResponse {    
     try {
       const result = await this.loginService.signIn(signInDto);
       return result;
@@ -44,6 +44,23 @@ export class AuthController {
           typeof error === 'object' && error !== null && 'message' in error
             ? (error as any).message
             : 'SignUp in failed',
+        success: false,
+      };
+    }
+  }
+
+  @MessagePattern('user.verifyToken')
+  async verifyToken(@Payload() token: string): PromiseMapResponse {
+    try {
+      const result = await this.tokenService.verifyToken(token);
+      return result;
+    } catch (error) {
+      return {
+        data: null,
+        message:
+          typeof error === 'object' && error !== null && 'message' in error
+            ? (error as any).message
+            : 'Token verification failed',
         success: false,
       };
     }
