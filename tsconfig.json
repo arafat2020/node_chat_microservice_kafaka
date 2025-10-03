@@ -17,6 +17,12 @@
     },
     {
       "path": "./shared"
+    },
+    {
+      "path": "./apps/channel-service-e2e"
+    },
+    {
+      "path": "./apps/channel-service"
     }
   ]
 }
