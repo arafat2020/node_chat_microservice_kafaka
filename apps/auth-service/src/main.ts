@@ -26,7 +26,7 @@ async function bootstrap() {
   );
   await app.listen();
   Logger.log(
-    `[========IGNITION=========] Application is running`
+    `[========IGNITION=========] Auth Service is running`
   );
 }
 
