@@ -19,10 +19,10 @@
       "path": "./shared"
     },
     {
-      "path": "./apps/channel-service-e2e"
+      "path": "./apps/server-service"
     },
     {
-      "path": "./apps/channel-service"
+      "path": "./apps/server-service-e2e"
     }
   ]
 }

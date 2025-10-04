@@ -1,10 +1,10 @@
 {
-  "name": "@node-chat/channel-service-e2e",
+  "name": "@node-chat/server-service-e2e",
   "version": "0.0.1",
   "private": true,
   "nx": {
     "implicitDependencies": [
-      "@node-chat/channel-service"
+      "@node-chat/server-service"
     ],
     "targets": {
       "e2e": {
@@ -13,12 +13,12 @@
           "{projectRoot}/test-output/jest/coverage"
         ],
         "options": {
-          "jestConfig": "apps/channel-service-e2e/jest.config.ts",
+          "jestConfig": "apps/server-service-e2e/jest.config.ts",
           "passWithNoTests": true
         },
         "dependsOn": [
-          "@node-chat/channel-service:build",
-          "@node-chat/channel-service:serve"
+          "@node-chat/server-service:build",
+          "@node-chat/server-service:serve"
         ]
       }
     }
