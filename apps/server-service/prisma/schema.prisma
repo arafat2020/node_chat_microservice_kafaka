@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Member {
+  id       String     @id @default(uuid())
+  userId   String // foreign key from User service
+  serverId String // foreign key from Server
+  role     MemberRole @default(GUEST)
+  nickname String?
+  joinedAt DateTime   @default(now())
+
+  server Server @relation(fields: [serverId], references: [id])
+
+  @@unique([userId, serverId]) // prevents duplicate membership
+}
+
+model Channel {
+  id   String      @id @default(uuid())
+  name String
+  type ChannelType @default(TEXT)
+
+  profileId String @db.Uuid
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Server    Server?  @relation(fields: [serverId], references: [id])
+  serverId  String?
+}
+
+model Server {
+  id         String @id @map("_id")
+  name       String
+  imageUrl   String
+  inviteCode String @unique
+
+  profileId String @db.Uuid
+
+  members  Member[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+}
+
+enum MemberRole {
+  ADMIN
+  MODERATOR
+  GUEST
+}
