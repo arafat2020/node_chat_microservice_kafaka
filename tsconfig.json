@@ -23,6 +23,12 @@
     },
     {
       "path": "./apps/server-service-e2e"
+    },
+    {
+      "path": "./apps/file-service-e2e"
+    },
+    {
+      "path": "./apps/file-service"
     }
   ]
 }
