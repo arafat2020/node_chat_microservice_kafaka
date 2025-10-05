@@ -15,20 +15,20 @@ datasource db {
 }
 
 model Member {
-  id       String     @id @default(uuid())
-  userId   String // foreign key from User service
-  serverId String // foreign key from Server
+  id       String     @id @default(uuid()) @db.Uuid
+  userId   String     @db.Uuid
+  serverId String     @db.Uuid
   role     MemberRole @default(GUEST)
   nickname String?
   joinedAt DateTime   @default(now())
 
   server Server @relation(fields: [serverId], references: [id])
 
-  @@unique([userId, serverId]) // prevents duplicate membership
+  @@unique([userId, serverId]) 
 }
 
 model Channel {
-  id   String      @id @default(uuid())
+  id   String      @id @default(uuid()) @db.Uuid
   name String
   type ChannelType @default(TEXT)
 
@@ -41,7 +41,7 @@ model Channel {
 }
 
 model Server {
-  id         String @id @map("_id")
+  id         String @id @default(uuid()) @db.Uuid
   name       String
   imageUrl   String
   inviteCode String @unique
