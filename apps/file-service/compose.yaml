@@ -1,0 +1,17 @@
+
+services:
+  file-db:
+    image: postgres
+    container_name: file-db
+    restart: unless-stopped
+    ports:
+      - "5435:5432"   # host:container
+    environment:
+      POSTGRES_USER: file_user
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: file_db
+    volumes:
+      - file_data:/var/lib/postgresql/data
+
+volumes:
+  file_data:
