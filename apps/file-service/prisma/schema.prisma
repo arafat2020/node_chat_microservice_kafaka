@@ -17,13 +17,12 @@ datasource db {
 
 model FileInstance {
   id        String   @id @default(uuid())
-  name      String
   fileId    String   @unique
   path      String
   createdAt DateTime @default(now())
-  expiresAt DateTime
   bucket    String
   type      FileType
+  uploadedBy String @db.Uuid
 }
 
 enum FileType {
