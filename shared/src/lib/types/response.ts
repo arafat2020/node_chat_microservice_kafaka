@@ -12,3 +12,4 @@ export interface ApiResponse<T> {
 }
 
 export type PromiseMapResponse = Promise<ApiResponse<Record<string, string>>>;
+export type PromiseMapResponseGeneric<T> = Promise<ApiResponse<T>>;

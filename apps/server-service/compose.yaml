@@ -1,17 +1,17 @@
 
 services:
-  channel-db:
+  server-db:
     image: postgres
-    container_name: channel-db
+    container_name: server-db
     restart: unless-stopped
     ports:
       - "5434:5432"   # host:container
     environment:
-      POSTGRES_USER: channel_user
+      POSTGRES_USER: server_user
       POSTGRES_PASSWORD: supersecret
-      POSTGRES_DB: channel_db
+      POSTGRES_DB: server_db
     volumes:
-      - channel_data:/var/lib/postgresql/data
+      - server_data:/var/lib/postgresql/data
 
 volumes:
-  channel_data:
+  server_data:

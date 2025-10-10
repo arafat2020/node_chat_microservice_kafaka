@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { S3Config, UploadService } from '@node-chat/shared';
+import { DdbService } from './db/db.service';
 
 @Global()
 @Module({
@@ -19,7 +20,11 @@ import { S3Config, UploadService } from '@node-chat/shared';
         return new UploadService(s3Config);
       },
     },
+    DdbService
   ],
-  exports: [UploadService],
+  exports: [
+    UploadService,
+    DdbService
+  ],
 })
 export class LibModule {}

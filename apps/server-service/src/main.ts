@@ -16,18 +16,18 @@ async function bootstrap() {
       transport: Transport.KAFKA,
        options: {
           client: {
-            clientId: 'channel-client',
+            clientId: 'server-client',
             brokers: ["localhost:29092"],
           },
           consumer: {
-            groupId: 'channel-consumer-group',
+            groupId: 'server-consumer-group',
           },
         },
     }
   );
   await app.listen();
   Logger.log(
-    `[========IGNITION=========] Channel Service is running`
+    `[========IGNITION=========] Server Service is running`
   );
 }
 

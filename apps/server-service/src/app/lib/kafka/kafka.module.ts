@@ -10,11 +10,11 @@ import { KafkaService } from "./kafka.service";
         transport: Transport.KAFKA,
          options: {
           client: {
-            clientId: 'channel-client',
+            clientId: 'server-client',
             brokers: ["localhost:29092"],
           },
           consumer: {
-            groupId: 'channel-consumer-group',
+            groupId: 'server-consumer-group',
           },
         },
       },
