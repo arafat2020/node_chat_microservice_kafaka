@@ -14,15 +14,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model FileInstance {
-  id        String   @id @default(uuid())
-  fileId    String   @unique
-  path      String
-  createdAt DateTime @default(now())
-  bucket    String
-  type      FileType
-  uploadedBy String @db.Uuid
+  id         String   @id @default(uuid())
+  fileId     String   @unique
+  path       String
+  createdAt  DateTime @default(now())
+  bucket     String
+  type       FileType
+  uploadedBy String   @db.Uuid
 }
 
 enum FileType {
