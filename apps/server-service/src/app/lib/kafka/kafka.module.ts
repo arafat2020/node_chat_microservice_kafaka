@@ -20,6 +20,7 @@ import { KafkaService } from "./kafka.service";
       },
     ]),
     ],
-    providers:[KafkaService]
+    providers:[KafkaService],
+    exports:[KafkaService],
 })
 export class kafkaModule {}
