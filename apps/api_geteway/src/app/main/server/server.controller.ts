@@ -20,10 +20,7 @@ export class ServerController {
     @Body() rawData: CreateServerDto,
     @Req() req: Request & { user: AuthMetaData }
   ) {
-    console.log(req.user);
-
     rawData.userId = req.user.sub;
-
     return await lastValueFrom(
       this.kafkaService.send('create.server', rawData)
     );
@@ -32,7 +29,11 @@ export class ServerController {
   @Post('delete-server')
   @ApiBearerAuth()
   @UseGuards(HTTP_Guard)
-  async deleteServer(@Body() rawData: DeleteServerServiceDto) {
+  async deleteServer(
+    @Body() rawData: DeleteServerServiceDto,
+    @Req() req: Request & { user: AuthMetaData }
+) {
+    rawData.userId = req.user.sub;
     return await lastValueFrom(
       this.kafkaService.send('delete.server', rawData)
     );

@@ -2,18 +2,18 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
+  InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom, throwError, timeout } from 'rxjs';
 import { KafkaService } from '../lib/kafka.service';
 import { AuthResponse } from '@node-chat/shared';
+import { kafkaRequest } from '../utils/kafkaRequest';
 
 @Injectable()
 export class HTTP_Guard implements CanActivate {
   private readonly verifyTopic = 'user.verifyToken';
-  constructor(
-    private readonly kafkaClient: KafkaService
-  ) {}
+  constructor(private readonly kafkaClient: KafkaService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const httpContext = context.switchToHttp();
     const req = httpContext.getRequest();
@@ -26,9 +26,7 @@ export class HTTP_Guard implements CanActivate {
     }
 
     try {
-      const response: AuthResponse = await firstValueFrom(
-        this.kafkaClient.send(this.verifyTopic, token)
-      );
+      const response: AuthResponse = await kafkaRequest(this.kafkaClient, this.verifyTopic, token);
 
       if (!response.success) {
         throw new UnauthorizedException(response.message || 'Invalid token');
