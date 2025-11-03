@@ -10,6 +10,8 @@ import { LibModule } from './lib/lib.module';
     LibModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+  ],
 })
 export class AppModule {}

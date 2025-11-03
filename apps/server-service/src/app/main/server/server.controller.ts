@@ -1,9 +1,8 @@
-import { Controller, Inject, UseGuards } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { CreateServerService } from './service/create-server.service';
 import { DeleteServerService } from './service/delete-server.service';
 import { MessagePattern } from '@nestjs/microservices';
-import { DeleteServerServiceDto } from './dto/delete-server.dto';
-import { CreateServerDto } from './dto/create-server.dto';
+import { CreateServerDto, DeleteServerServiceDto } from '@node-chat/shared';
 
 @Controller('server')
 export class ServerController {

@@ -24,7 +24,7 @@ model Member {
 
   server Server @relation(fields: [serverId], references: [id])
 
-  @@unique([userId, serverId]) 
+  @@unique([userId, serverId])
 }
 
 model Channel {
@@ -37,7 +37,7 @@ model Channel {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   Server    Server?  @relation(fields: [serverId], references: [id])
-  serverId  String?
+  serverId  String?  @db.Uuid
 }
 
 model Server {

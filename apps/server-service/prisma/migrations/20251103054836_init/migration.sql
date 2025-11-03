@@ -22,9 +22,9 @@ CREATE TABLE "public"."Channel" (
     "name" TEXT NOT NULL,
     "type" "public"."ChannelType" NOT NULL DEFAULT 'TEXT',
     "profileId" UUID NOT NULL,
-    "serverId" UUID NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "serverId" UUID,
 
     CONSTRAINT "Channel_pkey" PRIMARY KEY ("id")
 );
@@ -55,4 +55,4 @@ CREATE INDEX "Server_profileId_idx" ON "public"."Server"("profileId");
 ALTER TABLE "public"."Member" ADD CONSTRAINT "Member_serverId_fkey" FOREIGN KEY ("serverId") REFERENCES "public"."Server"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."Channel" ADD CONSTRAINT "Channel_serverId_fkey" FOREIGN KEY ("serverId") REFERENCES "public"."Server"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "public"."Channel" ADD CONSTRAINT "Channel_serverId_fkey" FOREIGN KEY ("serverId") REFERENCES "public"."Server"("id") ON DELETE SET NULL ON UPDATE CASCADE;
