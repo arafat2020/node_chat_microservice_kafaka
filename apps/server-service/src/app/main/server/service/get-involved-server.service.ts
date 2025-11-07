@@ -1,29 +1,30 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { DdbService } from '../../../lib/db/db.service';
 import {
-  DeleteServerServiceDto,
+  GetInvolveServerDto,
   PromiseMapResponseGeneric,
 } from '@node-chat/shared';
 
 @Injectable()
-export class DeleteServerService {
+export class GetInvolvedServerService {
   constructor(private readonly dbService: DdbService) {}
 
-  public async deleteServer({
-    serverId,
-    userId,
-  }: DeleteServerServiceDto): PromiseMapResponseGeneric<unknown> {
+  public async get({
+    id,
+  }: GetInvolveServerDto): PromiseMapResponseGeneric<unknown> {
     try {
-      const deletedServer = await this.dbService.server.delete({
+      const data = await this.dbService.server.findMany({
         where: {
-          id: serverId,
-          profileId: userId,
+          members: {
+            some: {
+              id,
+            },
+          },
         },
       });
-
       return {
-        data: deletedServer,
-        message: 'Server deleted successfully',
+        data,
+        message: 'Successfully fetched involved Servers',
         success: true,
       };
     } catch (error) {

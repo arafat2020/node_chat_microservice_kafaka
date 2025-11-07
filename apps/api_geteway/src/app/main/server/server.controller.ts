@@ -1,6 +1,5 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { KafkaService } from '../../lib/kafka.service';
-import { lastValueFrom } from 'rxjs';
 import {
   AuthMetaData,
   CreateServerDto,
@@ -8,6 +7,7 @@ import {
 } from '@node-chat/shared';
 import { HTTP_Guard } from '../../guard/microservice-auth-two.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { kafkaRequest } from '../../utils/kafkaRequest';
 
 @Controller()
 export class ServerController {
@@ -21,9 +21,7 @@ export class ServerController {
     @Req() req: Request & { user: AuthMetaData }
   ) {
     rawData.userId = req.user.sub;
-    return await lastValueFrom(
-      this.kafkaService.send('create.server', rawData)
-    );
+    return kafkaRequest(this.kafkaService, 'create.server', rawData)
   }
 
   @Post('delete-server')
@@ -34,8 +32,6 @@ export class ServerController {
     @Req() req: Request & { user: AuthMetaData }
 ) {
     rawData.userId = req.user.sub;
-    return await lastValueFrom(
-      this.kafkaService.send('delete.server', rawData)
-    );
+    return kafkaRequest(this.kafkaService, 'delete.server', rawData)
   }
 }
