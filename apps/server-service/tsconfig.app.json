@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": true,
     "target": "es2021"
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "../../shared/src/lib/dto/channel/update-channel.dto.ts"],
   "exclude": [],
   "references": [
     {

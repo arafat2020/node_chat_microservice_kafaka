@@ -3,7 +3,8 @@ import { ServerModule } from "./server/server.module";
 
 @Module({
     imports:[
-        ServerModule
+        ServerModule,
+        MainModule
     ]
 })
 export class MainModule {}
