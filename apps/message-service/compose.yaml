@@ -1,0 +1,17 @@
+
+services:
+  server-db:
+    image: postgres:15
+    container_name: message-db
+    restart: unless-stopped
+    ports:
+      - "5435:5432"   # host:container
+    environment:
+      POSTGRES_USER: message_user
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: message_db
+    volumes:
+      - server_data:/var/lib/postgresql/data
+
+volumes:
+  server_data:

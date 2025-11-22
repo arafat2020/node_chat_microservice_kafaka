@@ -2,14 +2,14 @@ import { Controller } from '@nestjs/common';
 import { CreateServerService } from './service/create-server.service';
 import { DeleteServerService } from './service/delete-server.service';
 import { MessagePattern } from '@nestjs/microservices';
-import { 
-  CreateServerDto, 
-  DeleteServerServiceDto, 
-  GetInvolveServerDto, 
-  GetServerDto, 
-  LeaveServerDto, 
-  UpdateServerDto
- } from '@node-chat/shared';
+import {
+  CreateServerDto,
+  DeleteServerServiceDto,
+  GetInvolveServerDto,
+  GetServerDto,
+  LeaveServerDto,
+  UpdateServerDto,
+} from '@node-chat/shared';
 import { UpdateServerService } from './service/update-server.service';
 import { GetServerService } from './service/getServer.service';
 import { GetInvolvedServerService } from './service/get-involved-server.service';
@@ -23,49 +23,36 @@ export class ServerController {
     private readonly updateServerService: UpdateServerService,
     private readonly getServerService: GetServerService,
     private readonly getInvolvedServerService: GetInvolvedServerService,
-    private readonly leaveServerService: LeaveServerService,
+    private readonly leaveServerService: LeaveServerService
   ) {}
 
   @MessagePattern('create.server')
   async createServer(data: CreateServerDto) {
-
-      return this.createServerService.createServer(data);
-      
+    return this.createServerService.createServer(data);
   }
 
   @MessagePattern('delete.server')
   async deleteServer(data: DeleteServerServiceDto) {
-    
-      return this.deleteServerService.deleteServer(data);
-    
+    return this.deleteServerService.deleteServer(data);
   }
 
   @MessagePattern('update.server')
   async updateServer(data: UpdateServerDto) {
-
-      return this.updateServerService.update(data);
-
+    return this.updateServerService.update(data);
   }
 
   @MessagePattern('get.server')
   async getServer(data: GetServerDto) {
-
-      return this.getServerService.get(data);
-
+    return this.getServerService.get(data);
   }
 
   @MessagePattern('get.involved.server')
   async getInvolvedServer(data: GetInvolveServerDto) {
-
-      return this.getInvolvedServerService.get(data);
-
+    return this.getInvolvedServerService.get(data);
   }
 
   @MessagePattern('leave.server')
   async leaveServer(data: LeaveServerDto) {
-
-      return this.leaveServerService.leaveServer(data);
-
+    return this.leaveServerService.leaveServer(data);
   }
-
 }
