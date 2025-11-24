@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsString, IsUUID } from 'class-validator';
-import { ChannelType } from 'src/lib/enum/channel-type.enum.js';
+import { ChannelType } from '../../enum/channel-type.enum.js';
 
 export class CreateChannelDto {
   @ApiProperty({

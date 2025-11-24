@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { ClientKafka, KafkaContext } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { AuthResponse } from 'src/lib/interfaces/auth-response.interface.js';
+import { AuthResponse } from '../interfaces/auth-response.interface.js';
 
 export function RPC_AuthGuard(
   verifyTopic: string,
