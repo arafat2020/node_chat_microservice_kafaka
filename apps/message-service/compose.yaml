@@ -13,5 +13,21 @@ services:
     volumes:
       - server_data:/var/lib/postgresql/data
 
+  redis:
+    image: redis:7-alpine
+    container_name: message-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"   # host:container
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
 volumes:
   server_data:
+  redis_data:
