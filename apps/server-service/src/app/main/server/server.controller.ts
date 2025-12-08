@@ -7,6 +7,7 @@ import {
   DeleteServerServiceDto,
   GetInvolveServerDto,
   GetServerDto,
+  IsServerExistsDto,
   LeaveServerDto,
   UpdateServerDto,
 } from '@node-chat/shared';
@@ -14,6 +15,7 @@ import { UpdateServerService } from './service/update-server.service';
 import { GetServerService } from './service/getServer.service';
 import { GetInvolvedServerService } from './service/get-involved-server.service';
 import { LeaveServerService } from './service/leave-server.service';
+import { QueryService } from './service/query.service';
 
 @Controller('server')
 export class ServerController {
@@ -23,7 +25,8 @@ export class ServerController {
     private readonly updateServerService: UpdateServerService,
     private readonly getServerService: GetServerService,
     private readonly getInvolvedServerService: GetInvolvedServerService,
-    private readonly leaveServerService: LeaveServerService
+    private readonly leaveServerService: LeaveServerService,
+    private readonly queryService: QueryService
   ) {}
 
   @MessagePattern('create.server')
@@ -54,5 +57,10 @@ export class ServerController {
   @MessagePattern('leave.server')
   async leaveServer(data: LeaveServerDto) {
     return this.leaveServerService.leaveServer(data);
+  }
+
+  @MessagePattern('is.server.exists')
+  async isServerExists(data: IsServerExistsDto) {
+    return this.queryService.isServerExists(data);
   }
 }
