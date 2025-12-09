@@ -1,7 +1,7 @@
 
 services:
   server-db:
-    image: postgres
+    image: postgres:15
     container_name: server-db
     restart: unless-stopped
     ports:

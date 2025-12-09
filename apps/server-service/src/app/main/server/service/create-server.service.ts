@@ -1,7 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { DdbService } from '../../../lib/db/db.service';
-import { CreateServerDto } from '../dto/create-server.dto';
-import { PromiseMapResponseGeneric } from '@node-chat/shared';
+import { CreateServerDto, PromiseMapResponseGeneric } from '@node-chat/shared';
 import { MemberRole } from '../../../../generated/prisma';
 
 @Injectable()
@@ -45,11 +44,9 @@ export class CreateServerService {
         success: true,
       };
     } catch (error) {
-      return {
-        data: null,
-        message: 'Failed to create server \n`' + String(error),
-        success: false,
-      };
+      throw new BadRequestException(
+              'Failed to update server \n`' + String(error)
+            );
     }
   }
 

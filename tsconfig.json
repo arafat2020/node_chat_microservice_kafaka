@@ -29,6 +29,12 @@
     },
     {
       "path": "./apps/file-service"
+    },
+    {
+      "path": "./apps/message-service-e2e"
+    },
+    {
+      "path": "./apps/message-service"
     }
   ]
 }

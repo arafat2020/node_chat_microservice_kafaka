@@ -1,0 +1,33 @@
+
+services:
+  server-db:
+    image: postgres:15
+    container_name: message-db
+    restart: unless-stopped
+    ports:
+      - "5435:5432"   # host:container
+    environment:
+      POSTGRES_USER: message_user
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: message_db
+    volumes:
+      - server_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: message-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"   # host:container
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  server_data:
+  redis_data:
