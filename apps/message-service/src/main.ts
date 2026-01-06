@@ -16,7 +16,7 @@ async function bootstrap() {
       options: {
         client: {
           clientId: 'message-client',
-          brokers: ['localhost:29092'],
+          brokers: process.env.KAFKA_BROKERS?.split(',') || ['localhost:29092'],
         },
         consumer: {
           groupId: 'message-consumer-group',
