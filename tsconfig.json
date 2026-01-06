@@ -35,6 +35,12 @@
     },
     {
       "path": "./apps/message-service"
+    },
+    {
+      "path": "./apps/event_service-e2e"
+    },
+    {
+      "path": "./apps/event_service"
     }
   ]
 }
